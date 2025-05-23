@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso IA no MPGO - Cheat Sheet Aula 01</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .header .badge {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid #3498db;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .card h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 {
+            color: #34495e;
+            font-size: 1.2rem;
+            margin: 20px 0 10px 0;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+        }
+
+        .list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .list li:before {
+            content: "▶";
+            color: #3498db;
+            position: absolute;
+            left: 0;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .comparison-table th {
+            background: #34495e;
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .prompt-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 MPGO IA - Cheat Sheet</h1>
+            <div class="subtitle">Aula 01: Fundamentos dos Modelos de Linguagem e Primeiros Prompts</div>
+            <div class="badge">Ministério Público de Goiás - SUBPLEI</div>
+        </div>
+
+        <div class="grid">
+            <!-- O que são LLMs -->
+            <div class="card">
+                <h2>🧠 O que são LLMs?</h2>
+                <div class="highlight">
+                    <strong>Large Language Models (LLMs)</strong> são modelos de inteligência artificial generativa que processam e geram texto através de cálculos probabilísticos.
+                </div>
+                <ul class="list">
+                    <li><strong>ChatGPT:</strong> Interface conversacional da OpenAI</li>
+                    <li><strong>Claude:</strong> Modelo da Anthropic (não treina com dados do usuário)</li>
+                    <li><strong>Gemini:</strong> Modelo do Google (maior janela de contexto)</li>
+                    <li><strong>Notebook LM:</strong> Melhor para extração precisa de informações</li>
+                </ul>
+            </div>
+
+            <!-- Como Funcionam -->
+            <div class="card">
+                <h2>⚙️ Como Funcionam</h2>
+                <h3>Tokens</h3>
+                <p>LLMs não processam palavras, mas <strong>tokens</strong> (fragmentos de texto):</p>
+                <ul class="list">
+                    <li>1 token ≈ 4-6 caracteres</li>
+                    <li>1 página ≈ 400-500 tokens</li>
+                    <li>Janela de contexto limita quantidade processada</li>
+                </ul>
+                
+                <h3>Temperatura</h3>
+                <div class="warning">
+                    <strong>Importante:</strong> LLMs calculam probabilidades - cada resposta será diferente devido à aleatoriedade (temperatura).
+                </div>
+            </div>
+
+            <!-- Primeiros Passos -->
+            <div class="card">
+                <h2>🚀 Primeiros Passos</h2>
+                <h3>Configuração Básica</h3>
+                <ul class="list">
+                    <li>Desmarque "Melhorar modelo para todos" (ChatGPT)</li>
+                    <li>Claude: não treina dados por padrão</li>
+                    <li>Use versões gratuitas para começar</li>
+                    <li>Teste diferentes modelos para cada necessidade</li>
+                </ul>
+                
+                <div class="success">
+                    <strong>Dica:</strong> Comece com prompts simples e vá refinando gradualmente.
+                </div>
+            </div>
+
+            <!-- Estrutura de Prompts -->
+            <div class="card">
+                <h2>📝 Estrutura de Prompts</h2>
+                <div class="prompt-example">
+Aja como um [PAPEL]<br>
+Crie uma [TAREFA]<br>
+Exiba em formato de [FORMATO]<br>
+Use tom [TOM]
+                </div>
+                
+                <h3>Exemplos de Uso</h3>
+                <ul class="list">
+                    <li><strong>Papel:</strong> Promotor de Justiça experiente</li>
+                    <li><strong>Tarefa:</strong> Analisar inquérito policial</li>
+                    <li><strong>Formato:</strong> Relatório estruturado</li>
+                    <li><strong>Tom:</strong> Formal e técnico</li>
+                </ul>
+            </div>
+
+            <!-- Regulamentação CNJ -->
+            <div class="card">
+                <h2>⚖️ Regulamentação CNJ</h2>
+                <h3>✅ Permitido</h3>
+                <ul class="list">
+                    <li>Uso com capacitação prévia</li>
+                    <li>Processos não sigilosos (com anonimização)</li>
+                    <li>Modelos que não treinam com dados do usuário</li>
+                    <li>Sempre com supervisão humana</li>
+                </ul>
+                
+                <h3>❌ Vedado</h3>
+                <ul class="list">
+                    <li>Avaliação de personalidade</li>
+                    <li>Previsão de crimes</li>
+                    <li>Decisões sem revisão humana</li>
+                    <li>Processos sigilosos sem anonimização</li>
+                </ul>
+            </div>
+
+            <!-- Comparação de Modelos -->
+            <div class="card">
+                <h2>🔍 Comparação de Modelos</h2>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Modelo</th>
+                        <th>Melhor para</th>
+                        <th>Janela de Contexto</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Claude</strong></td>
+                        <td>Escrita de qualidade</td>
+                        <td>200k tokens</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ChatGPT</strong></td>
+                        <td>Versatilidade geral</td>
+                        <td>128k tokens</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gemini</strong></td>
+                        <td>Pesquisa e grandes contextos</td>
+                        <td>1M+ tokens</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Notebook LM</strong></td>
+                        <td>Extração precisa</td>
+                        <td>5M+ tokens</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Casos de Uso para MP -->
+            <div class="card">
+                <h2>🏛️ Casos de Uso para MP</h2>
+                <h3>Já Demonstrado</h3>
+                <ul class="list">
+                    <li>Geração de denúncias (350 páginas → 20 segundos)</li>
+                    <li>Elaboração de ementas</li>
+                    <li>Análise de inquéritos policiais</li>
+                    <li>Resumos de processos</li>
+                </ul>
+                
+                <h3>Benefícios</h3>
+                <div class="highlight">
+                    <strong>Ganhos:</strong> Tempo, qualidade (se bem controlado), produtividade
+                </div>
+            </div>
+
+            <!-- Mitos e Realidades -->
+            <div class="card">
+                <h2>🎭 Mitos e Realidades</h2>
+                <h3>❌ Mitos</h3>
+                <ul class="list">
+                    <li>Customização ≠ Treinamento</li>
+                    <li>Prompt ≠ Programação</li>
+                    <li>Modelo não tem personalidade</li>
+                    <li>Token ≠ Pensamento</li>
+                    <li>Não existe contexto infinito</li>
+                </ul>
+                
+                <h3>✅ Realidades</h3>
+                <ul class="list">
+                    <li>São calculadoras probabilísticas poderosas</li>
+                    <li>Precisam sempre de supervisão humana</li>
+                    <li>Podem alucinar (inventar informações)</li>
+                    <li>São ruins para matemática</li>
+                </ul>
+            </div>
+
+            <!-- Ferramentas MPGO -->
+            <div class="card">
+                <h2>🛠️ Ferramentas MPGO</h2>
+                <h3>Em Desenvolvimento</h3>
+                <ul class="list">
+                    <li><strong>Ferramenta de anonimização:</strong> Para processos sigilosos</li>
+                    <li><strong>Processamento de PDFs:</strong> Limpeza automática de ruído</li>
+                    <li><strong>LLM institucional:</strong> Modelo próprio do MP</li>
+                    <li><strong>Interface customizada:</strong> Integração com sistemas internos</li>
+                </ul>
+                
+                <div class="success">
+                    <strong>Atual:</strong> DIGA MP - Interface para tarefas não sensíveis
+                </div>
+            </div>
+
+            <!-- Primeiros Exercícios -->
+            <div class="card">
+                <h2>💡 Primeiros Exercícios</h2>
+                <h3>Para Praticar Hoje</h3>
+                <div class="prompt-example">
+1. Faça uma pergunta simples sobre direito penal<br>
+2. Peça um resumo de um artigo jurídico<br>
+3. Solicite explicação de um conceito legal<br>
+4. Teste diferentes tons (formal, didático)
+                </div>
+                
+                <div class="warning">
+                    <strong>Lembre-se:</strong> Sempre conferir as respostas e não usar para processos sigilosos ainda.
+                </div>
+            </div>
+
+            <!-- Próximos Passos -->
+            <div class="card">
+                <h2>🎯 Próximos Passos</h2>
+                <h3>Próxima Aula</h3>
+                <ul class="list">
+                    <li><strong>Tema:</strong> Mitos, Limites e Ética da IA</li>
+                    <li><strong>Foco:</strong> Alucinações, vieses e uso seguro</li>
+                    <li><strong>Prática:</strong> Criação de prompts éticos</li>
+                    <li><strong>Professor:</strong> Fabrício Lamas</li>
+                </ul>
+                
+                <h3>Recomendações</h3>
+                <ul class="list">
+                    <li>Use pelo menos 10 horas uma ferramenta de IA</li>
+                    <li>Teste todos os modelos apresentados</li>
+                    <li>Participe do grupo do WhatsApp</li>
+                    <li>Comece com casos não sensíveis</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>MPGO - Ministério Público do Estado de Goiás</strong></p>
+            <p>SUBPLEI - Subprocuradoria de Planejamento, Estratégia e Inovação</p>
+            <p>Curso de Inteligência Artificial - 2025</p>
+        </div>
+    </div>
+</body>
+</html>
